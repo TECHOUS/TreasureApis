@@ -1,35 +1,22 @@
-/**
- * API LIST
- * 
- * /api/search					"query_string" : {"default_field" : "name", "query" : "BOOTSTRAP*"}
- * /api/search/:description		"query_string" : {"default_field" : "description", "query" : "*Modular JavaScript*"}
- * /api/search/:docs				
- */
-const Appbase = require("appbase-js");
-const express = require('express');
+const express 	= require('express');
+const path 		= require('path');
 
-var appbaseRef = Appbase({
-	url: "https://scalr.api.appbase.io",
-	app: "treasurejs",
-	credentials: "bFCNleTxK:57890652-b8ef-44f4-a4df-9ae811bf9ffd"
-})
+const app = express();
 
-appbaseRef.search({
-    type: "_doc",
-    body: {
-      query: {
-		"query_string" : {"default_field" : "docs", "query" : "https*"}
-      }
-    }
-}).then(response => {
-	let arr = response.hits.hits;
-	for(let i=0;i<arr.length;i++)
-	{
-		let object = arr[i]["_source"]; 
-		
-		object.other = JSON.parse(object.other);
-		console.log(object);
-	}
-}).catch(error => {
-    console.log("Error: ", error)
+// express middleware handling the body parsing 
+app.use(express.json());
+
+// express middleware handling the form parsing
+app.use(express.urlencoded({extended: false}));
+
+// set static web application
+app.use(express.static(path.join(__dirname,'public')));
+
+// set the api path to routes folder
+app.use('/api/search',require('./routes/api/search'));
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT,()=>{
+    console.log(`server running on ${PORT}`);
 });
