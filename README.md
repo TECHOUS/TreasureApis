@@ -8,7 +8,7 @@ This repository contains the Treasure Searching APIs code for searching the data
 
 ## Examples
 
-## Documentation
+## API Reference Documentation
 
 Coming Soon
 

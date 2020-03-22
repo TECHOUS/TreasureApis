@@ -2,7 +2,7 @@
  * API LIST
  * 
  
- * /api/search/:description		"query_string" : {"default_field" : "description", "query" : "*Modular JavaScript*"}
+ * /api/search/description/:Modular		"query_string" : {"default_field" : "description", "query" : "*Modular JavaScript*"}
  * /api/search/:docs				
  */
 
@@ -22,72 +22,198 @@ var appbaseRef = Appbase({
  * method: GET
  * request
  * {
- *      find: "hello"
+ *      "find": "moment"
  * } 
  **/
 router.get('/',(req,res)=>{
-    
-    if(Array.isArray(req.body))
-    {
-        res.status(404).json({message: "Array is unacceptable"});
-    }
-    else if(!req.body.find)
-    {
-        res.status(404).json({message : "Request properties invalid"});
-    }
-    else
-    {
+    if(handleInvalidRequest(req, res)){
         let find = req.body.find.toUpperCase();
-        searchData(res, find);        
+        searchNameData(res, find);
     }
 });
 
 /**
- * It will search data in appbase
+ * API:
+ * url: /api/search/description
+ * method: GET
+ * request
+ * {
+ *      find: "mo"
+ * } 
  **/
-function searchData(res, find)
-{
+router.get('/description',(req,res)=>{
+    if(handleInvalidRequest(req, res)){
+        let find = req.body.find.toUpperCase();
+        searchDescriptionData(res, find);
+    }
+});
+
+/**
+ * API:
+ * url: /api/search/docs
+ * method: GET
+ * request
+ * {
+ *      find: "mo"
+ * } 
+ **/
+router.get('/docs',(req,res)=>{
+    if(handleInvalidRequest(req, res)){
+        let find = req.body.find.toUpperCase();
+        searchDocsData(res, find);
+    }
+});
+
+/**
+ * API:
+ * url: /api/search/website
+ * method: GET
+ * request
+ * {
+ *      find: "mo"
+ * } 
+ **/
+router.get('/website',(req,res)=>{
+    if(handleInvalidRequest(req, res)){
+        let find = req.body.find.toUpperCase();
+        searchWebsiteData(res, find);
+    }
+});
+
+/**
+ * API:
+ * url: /api/search/github
+ * method: GET
+ * request
+ * {
+ *      find: "mo"
+ * } 
+ **/
+router.get('/github', (req, res)=>{
+    if(handleInvalidRequest(req, res)){
+        let find = req.body.find.toUpperCase();
+        searchGithubData(res, find);
+    }
+})
+
+/**
+ * API:
+ * url: /api/search/other
+ * method: GET
+ * request
+ * {
+ *      find: "Transformers"
+ * } 
+ **/
+router.get('/other', (req, res)=>{
+    if(handleInvalidRequest(req, res)){
+        let find = req.body.find.toUpperCase();
+        searchOtherData(res, find);
+    }
+})
+
+/**
+ * This function handles the invalid request
+ * 
+ * @param req request to handle
+ * @param res response to send back
+ **/
+function handleInvalidRequest(req, res){
+    if(Array.isArray(req.body))                                         // if the request send is an array
+    {
+        res.status(404).json({message: "Array is unacceptable"});
+        return false;
+    }
+    else if(!req.body || !req.body.find)                                             // if the request don't contain the find field
+    {
+        res.status(404).json({message : "Request properties invalid"});
+        return false;
+    }
+    return true;
+}
+
+/**
+ * this function will call the treasure - appbase api
+ * 
+ * @param res response to send response
+ * @param find query to find
+ * @param field field to search data
+ **/
+function callAppbaseAPIv1(res, find, field){
     find = find+"*";
     appbaseRef.search({
         type: "_doc",
         body: {
             query: {
-                "query_string" : {"default_field" : "name", "query" : find}
-                // match_all: {}
+                "query_string" : {"default_field" : field, "query" : find}
             }
         }
     }).then(response => {
-        // console.log(response);
-        // let len = response.hits.total.value;
-        // console.log(len);
-
-        // let arr = response.hits.hits;
-        
-        // let result = [];
-        // for(let i=0;i<len;i++)
-        // {
-        //     let object = arr[i]["_source"]; 
-        //     console.log(object.name);
-
-            // if(object.name[0]===find.charAt(0) && object.name.substring(0,find.length) === find)
-            // {
-            //     object.other = JSON.parse(object.other);
-            //     result.push(object);
-            //     console.log(object);
-            // }
-        // }
         res.json(response);
     }).catch(error => {
-        console.log("Error: ", error)
+        console.log("Error in "+field+" API: ", error)
     });
 }
 
-// router.get('/description',(req,res)=>{
-//     res.send('description working');
-// });
+/**
+ * It will search name data in appbase
+ * 
+ * @param res response to return
+ * @param find name data to find
+ **/
+function searchNameData(res, find)
+{
+    callAppbaseAPIv1(res, find, "name");
+}
 
-// router.get('/docs',(req,res)=>{
-//     res.send('docs working');
-// });
+/**
+ * It will search description data in appbase
+ * 
+ * @param response to return
+ * @param find description data to find 
+ **/
+function searchDescriptionData(res, find){
+    callAppbaseAPIv1(res, find, "description");
+}
+
+/**
+ * This function searches the docs data in appbase
+ * 
+ * @param res response to send back
+ * @param find docs data to find
+ **/
+function searchDocsData(res, find){
+    callAppbaseAPIv1(res, find, "docs");
+}
+
+/**
+ * This function searches the website data in appbase
+ * 
+ * @param res response to send back
+ * @param find website data to find
+ **/
+function searchWebsiteData(res, find){
+    callAppbaseAPIv1(res, find, "website");
+}
+
+/**
+ * this function searches the github data in appbase
+ * 
+ * @param res response to send back
+ * @param find github data to find
+ **/
+function searchGithubData(res ,find){
+    callAppbaseAPIv1(res, find, "github");
+}
+
+/**
+ * This function searches the other data in appbase
+ * 
+ * @param res response to send back 
+ * @param find other data to find
+ */
+function searchOtherData(res, find){
+    callAppbaseAPIv1(res, find, "other");
+}
 
 module.exports = router;
