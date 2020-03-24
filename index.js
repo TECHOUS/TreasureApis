@@ -12,8 +12,11 @@ app.use(express.urlencoded({extended: false}));
 // set static web application
 app.use(express.static(path.join(__dirname,'public')));
 
-// set the api path to routes folder
-app.use('/api/search',require('./routes/api/search'));
+// set the api version 1 path to routes folder
+app.use('/api/v1/search',require('./routes/api/v1/search'));
+
+// set the api version 2 path to routes folder
+app.use('/api/v2/search',require('./routes/api/v2/search'));
 
 const PORT = process.env.PORT || 5000;
 

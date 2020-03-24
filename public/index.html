@@ -7,9 +7,9 @@
     <title>Treasure JS Available Apis</title>
 </head>
 <body>
-    <h1>TREASURE JS SUPPORTED GET APIs</h1>
+    <h1>TREASURE JS SUPPORTED GET APIs VERSION1</h1>
     <div>
-        <h3>/api/search</h3>
+        <h3>/api/v1/search</h3>
         <pre>
     {
         "find": "moment"
@@ -18,7 +18,7 @@
     </div>
 
     <div>
-        <h3>/api/description</h3>
+        <h3>/api/v1/search/description</h3>
         <pre>
     {
         "find": "mo"
@@ -27,7 +27,7 @@
     </div>
     
     <div>
-        <h3>/api/docs</h3>
+        <h3>/api/v1/search/docs</h3>
         <pre>
     {
         "find": "mo"
@@ -36,7 +36,7 @@
     </div>
 
     <div>
-        <h3>/api/website</h3>
+        <h3>/api/v1/search/website</h3>
         <pre>
     {
         "find": "mo"
@@ -45,7 +45,7 @@
     </div>
 
     <div>
-        <h3>/api/github</h3>
+        <h3>/api/v1/search/github</h3>
         <pre>
     {
         "find": "github"
@@ -54,20 +54,120 @@
     </div>
 
     <div>
-        <h3>/api/other</h3>
+        <h3>/api/v1/search/other</h3>
         <pre>
     {
         "find": "Transformers"
     }
         </pre>
     </div>
+
     <div>
-        <p>We can restrict the response size using</p>
-        <pre>
+        <h4>Extra Parameters</h4>
+        <div>
+            <p>We can restrict the response size using</p>
+            <pre>
     {
         "size": 5
     }
-        </pre>
+            </pre>
+        </div>
+        
+    </div>
+
+    <hr/>
+    <!-- VERSION 2 APIS  -->
+    <h2>VERSION 2 APIS</h2>
+    <div>
+        <fieldset>
+            <h3>/api/v2/search</h3>
+            <pre>
+    {
+        "find": "moment"
+    }        
+            </pre>
+            <p>case insensitive</p>
+            <p> this api will check the name from the start</p>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <h3>/api/v2/search/description</h3>
+            <pre>
+    {
+        "find": "MobX"
+    }        
+            </pre>
+            <p>case insensitive</p>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <h3>/api/v2/search/docs</h3>
+            <pre>
+    {
+        "find": "git"
+    }
+            </pre>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <h3>/api/v2/search/website</h3>
+            <pre>
+    {
+        "find": "git"
+    }
+            </pre>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <h3>/api/v2/search/github</h3>
+            <pre>
+    {
+        "find": "git"
+    }
+            </pre>
+        </fieldset>
+    </div>
+    <div>
+        <h4>Extra Parameters</h4>
+        <div>
+            <p><u>We can restrict the response size using</u></p>
+            <pre>
+    {
+        "size": 5
+    }
+            </pre>
+        </div>
+        <div>
+            <p><u>We can use exact boolean flag to get exact match response</u></p>
+            <pre>
+    {
+        "exact": true
+    }
+            </pre>
+        </div>
+        <div>
+            <p><u>We can add the projection i.e keys we need in the response</u></p>
+            <pre>
+    {
+        "projection": ["name"]
+    }
+            </pre>
+            <p>You can only add the below fields in projection array</p>
+            <ol>
+                <li>""</li>
+                <li>"_id"</li>
+                <li>"name"</li>
+                <li>"description"</li>
+                <li>"github"</li>
+                <li>"website"</li>
+                <li>"docs"</li>
+                <li>"other"</li>
+            </ol>
+        </div>
     </div>
 </body>
 </html>

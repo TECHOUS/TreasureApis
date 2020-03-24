@@ -2,9 +2,13 @@
  * API LIST
  * 
  
- * /api/search/description/:Modular		"query_string" : {"default_field" : "description", "query" : "*Modular JavaScript*"}
- * /api/search/:docs				
- */
+ * /api/v1/search
+ * /api/v1/search/description
+ * /api/v1/search/docs
+ * /api/v1/search/website
+ * /api/v1/search/github
+ * /api/v1/search/other				
+ **/
 
 const express = require('express');
 const router = express.Router();
