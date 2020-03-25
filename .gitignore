@@ -3,3 +3,4 @@
 appbaseDriver
 node_modules
 driver
+.env

@@ -12,8 +12,9 @@ const express = require('express');
 const router = express.Router();
 const myModel = require('../../../models/myModel');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect("mongodb+srv://GauravWalia:WALIAa@1998@mycluster-uxeui.mongodb.net/test", {useNewUrlParser: true});
+mongoose.connect(process.env.MONGO_DB, {useNewUrlParser: true});
 
 const db = mongoose.connection;
 db.on('error',console.error.bind(console, 'Connection error:'));

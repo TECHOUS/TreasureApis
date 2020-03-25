@@ -13,11 +13,12 @@
 const express = require('express');
 const router = express.Router();
 const Appbase = require("appbase-js");
+require('dotenv').config();
 
 var appbaseRef = Appbase({
-	url: "https://scalr.api.appbase.io",
-	app: "treasurejs",
-	credentials: "bFCNleTxK:57890652-b8ef-44f4-a4df-9ae811bf9ffd"
+	url: process.env.APPBASE_URL,
+	app: process.env.APPBASE_APP,
+	credentials: process.env.APPBASE_CREDENTIALS
 })
 
 /**
@@ -33,7 +34,7 @@ router.get('/',(req,res)=>{
     if(handleInvalidRequest(req, res)){
         let find = req.body.find.toUpperCase();
         let size = req.body.size;
-        searchNameData(res, find, size);
+        callAppbaseAPIv1(res, find, "name", size);
     }
 });
 
@@ -50,7 +51,7 @@ router.get('/description',(req,res)=>{
     if(handleInvalidRequest(req, res)){
         let find = req.body.find.toUpperCase();
         let size = req.body.size;
-        searchDescriptionData(res, find, size);
+        callAppbaseAPIv1(res, find, "description", size);
     }
 });
 
@@ -67,7 +68,7 @@ router.get('/docs',(req,res)=>{
     if(handleInvalidRequest(req, res)){
         let find = req.body.find.toUpperCase();
         let size = req.body.size;
-        searchDocsData(res, find, size);
+        callAppbaseAPIv1(res, find, "docs", size);
     }
 });
 
@@ -84,7 +85,7 @@ router.get('/website',(req,res)=>{
     if(handleInvalidRequest(req, res)){
         let find = req.body.find.toUpperCase();
         let size = req.body.size;
-        searchWebsiteData(res, find, size);
+        callAppbaseAPIv1(res, find, "website", size);
     }
 });
 
@@ -101,7 +102,7 @@ router.get('/github', (req, res)=>{
     if(handleInvalidRequest(req, res)){
         let find = req.body.find.toUpperCase();
         let size = req.body.size;
-        searchGithubData(res, find, size);
+        callAppbaseAPIv1(res, find, "github", size);
     }
 })
 
@@ -118,7 +119,7 @@ router.get('/other', (req, res)=>{
     if(handleInvalidRequest(req, res)){
         let find = req.body.find.toUpperCase();
         let size = req.body.size;
-        searchOtherData(res, find, size);
+        callAppbaseAPIv1(res, find, "other", size);
     }
 })
 
@@ -175,66 +176,6 @@ function callAppbaseAPIv1(res, find, field, responseSize){
     }).catch(error => {
         console.log("Error in "+field+" API: ", error)
     });
-}
-
-/**
- * It will search name data in appbase
- * 
- * @param res response to return
- * @param find name data to find
- **/
-function searchNameData(res, find, size){
-    callAppbaseAPIv1(res, find, "name", size);
-}
-
-/**
- * It will search description data in appbase
- * 
- * @param response to return
- * @param find description data to find 
- **/
-function searchDescriptionData(res, find, size){
-    callAppbaseAPIv1(res, find, "description", size);
-}
-
-/**
- * This function searches the docs data in appbase
- * 
- * @param res response to send back
- * @param find docs data to find
- **/
-function searchDocsData(res, find, size){
-    callAppbaseAPIv1(res, find, "docs", size);
-}
-
-/**
- * This function searches the website data in appbase
- * 
- * @param res response to send back
- * @param find website data to find
- **/
-function searchWebsiteData(res, find, size){
-    callAppbaseAPIv1(res, find, "website", size);
-}
-
-/**
- * this function searches the github data in appbase
- * 
- * @param res response to send back
- * @param find github data to find
- **/
-function searchGithubData(res ,find, size){
-    callAppbaseAPIv1(res, find, "github", size);
-}
-
-/**
- * This function searches the other data in appbase
- * 
- * @param res response to send back 
- * @param find other data to find
- */
-function searchOtherData(res, find, size){
-    callAppbaseAPIv1(res, find, "other", size);
 }
 
 module.exports = router;
