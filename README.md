@@ -1,28 +1,25 @@
-<head>
-   <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-</head>
 <center>
-    <i class="fas fa-4x fa-meteor" style="color: #f89494"></i>
+    <img src="logos/treasureapi.png" title="treasure api"/>
     <h1>TREASURE APIS</h1>
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/techous/treasureapis">
+    <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/techous/treasureapis">
+    <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/techous/treasureapis">
+    <a href="https://treasurejsapi.herokuapp.com/">
+        <img alt="Website" src="https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Ftreasurejsapi.herokuapp.com">
+    </a>
+    <a href="https://join.slack.com/t/techousworkspace/shared_invite/enQtODYzOTM4MDk3NzQ5LTEzMWY5Mjk1MjE3MzBiYWFiODA1YWRiMmUyYTVjNmZlMjM3MGZmZDczY2JkZGZkNmQzODg1Nzc2NGEwYWE1NTg">
+        <img alt="slack" src="https://img.shields.io/badge/slack-online-yellow">
+    </a>
 </center>
-
-![GitHub top language](https://img.shields.io/github/languages/top/techous/treasureapis)
-![GitHub](https://img.shields.io/github/license/techous/treasureapis)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/techous/treasureapis)
-![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online&url=https%3A%2F%2Ftreasurejsapi.herokuapp.com%2F)
 
 This repository contains the Treasure Searching APIs code for searching the data provided by the Core Treasure JS.
 
 ## Supported Languages
 
-<i class="fab fa-3x fa-node" style="color: lightgreen"></i>
-&nbsp;&nbsp;
-<i class="fab fa-3x fa-java" style="color: orange"></i>
-&nbsp;&nbsp;
-<i class="fab fa-3x fa-js-square" style="color: cyan"></i>
-&nbsp;&nbsp;
-<i class="fab fa-3x fa-python" style="color: green"></i>
+<img src="logos/nodejs.png" height="60px"/>
+<img src="logos/js.png" height="60px"/>
+<img src="logos/java.png" height="60px"/>
+<img src="logos/py.png" height="60px"/>
 
 ## Getting Started
 
