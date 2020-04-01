@@ -23,68 +23,60 @@ var appbaseRef = Appbase({
 
 /**
  * API:
- * url: /api/search
+ * url: /api/v1/search
  * method: GET
- * request
- * {
- *      "find": "moment"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v1/search?find=m
  **/
 router.get('/',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
         callAppbaseAPIv1(res, find, "name", size);
     }
 });
 
 /**
  * API:
- * url: /api/search/description
+ * url: /api/v1/search/description
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v1/search/description?find=mo
  **/
 router.get('/description',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
         callAppbaseAPIv1(res, find, "description", size);
     }
 });
 
 /**
  * API:
- * url: /api/search/docs
+ * url: /api/v1/search/docs
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v1/search/docs?find=mo
  **/
 router.get('/docs',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
         callAppbaseAPIv1(res, find, "docs", size);
     }
 });
 
 /**
  * API:
- * url: /api/search/website
+ * url: /api/v1/search/website
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v1/search/website?find=https
  **/
 router.get('/website',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
         callAppbaseAPIv1(res, find, "website", size);
     }
 });
@@ -93,15 +85,13 @@ router.get('/website',(req,res)=>{
  * API:
  * url: /api/search/github
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v1/search/github?find=react
  **/
 router.get('/github', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
         callAppbaseAPIv1(res, find, "github", size);
     }
 })
@@ -110,15 +100,12 @@ router.get('/github', (req, res)=>{
  * API:
  * url: /api/search/other
  * method: GET
- * request
- * {
- *      find: "Transformers"
- * } 
+ * request: https://treasurejsapi.herokuapp.com/api/v1/search/other?find=react
  **/
 router.get('/other', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
         callAppbaseAPIv1(res, find, "other", size);
     }
 })
@@ -130,14 +117,9 @@ router.get('/other', (req, res)=>{
  * @param res response to send back
  **/
 function handleInvalidRequest(req, res){
-    if(Array.isArray(req.body))                                         // if the request send is an array
+    if(!req.query || !req.query.find || req.body.find === '')                                             // if the request don't contain the find field
     {
-        res.status(404).json({message: "Array is unacceptable"});
-        return false;
-    }
-    else if(!req.body || !req.body.find)                                             // if the request don't contain the find field
-    {
-        res.status(404).json({message : "Request properties invalid"});
+        res.status(404).json({message : "Request parameters invalid"});
         return false;
     }
     return true;
@@ -151,9 +133,13 @@ function handleInvalidRequest(req, res){
  * @param field field to search data
  **/
 function callAppbaseAPIv1(res, find, field, responseSize){
-    if(responseSize==null || responseSize<=0){                                     // if size is not defined in the request it is taken as 1000
-        responseSize = 1000;
+    
+    if(!responseSize || parseInt(responseSize)<=0 || isNaN(responseSize)){
+        responseSize=1000;
+    }else{
+        responseSize = parseInt(responseSize);
     }
+
     find = find+"*";
     appbaseRef.search({
         type: "_doc",
@@ -169,6 +155,7 @@ function callAppbaseAPIv1(res, find, field, responseSize){
         let result = [];
         if(arr!=null && arr.length > 0){
             for(let i=0;i<arr.length;i++){
+                arr[i]._source.other = JSON.parse(arr[i]._source.other);
                 result.push(arr[i]._source);
             }
         }

@@ -21,57 +21,52 @@ db.on('error',console.error.bind(console, 'Connection error:'));
 
 /**
  * API:
- * url: /api/search
+ * url: /api/v2/search
  * method: GET
- * request
- * {
- *      "find": "moment"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v2/search?find=async  
  **/
 router.get('/',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
-        let exact = req.body.exact;
-        let projection = req.body.projection;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
+        let exact = req.query.exact;
+        let projection = req.query.projection;
         callMongoDbAtlasAPIv2(res, find, "name", size, exact, projection);
     }
 });
 
 /**
  * API:
- * url: /api/search/description
+ * url: /api/v2/search/description
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v2/search/description?find=mo
  **/
 router.get('/description',(req,res)=>{
+    console.log(req.query);
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
-        let exact = req.body.exact;
-        let projection = req.body.projection;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
+        let exact = req.query.exact;
+        let projection = req.query.projection;
         callMongoDbAtlasAPIv2(res, find, "description", size, exact, projection);
     }
 });
 
 /**
  * API:
- * url: /api/search/docs
+ * url: /api/v2/search/docs
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v2/search/docs?find=async
  **/
 router.get('/docs',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
-        let exact = req.body.exact;
-        let projection = req.body.projection;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
+        let exact = req.query.exact;
+        let projection = req.query.projection;
         callMongoDbAtlasAPIv2(res, find, "docs", size, exact, projection);
     }
 });
@@ -80,17 +75,15 @@ router.get('/docs',(req,res)=>{
  * API:
  * url: /api/search/website
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v2/search/website?find=async 
  **/
 router.get('/website',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
-        let exact = req.body.exact;
-        let projection = req.body.projection;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
+        let exact = req.query.exact;
+        let projection = req.query.projection;
         callMongoDbAtlasAPIv2(res, find, "website", size, exact, projection);
     }
 });
@@ -99,17 +92,15 @@ router.get('/website',(req,res)=>{
  * API:
  * url: /api/search/github
  * method: GET
- * request
- * {
- *      find: "mo"
- * } 
+ * 
+ * request: https://treasurejsapi.herokuapp.com/api/v2/search/github?find=async
  **/
 router.get('/github', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.body.find.toUpperCase();
-        let size = req.body.size;
-        let exact = req.body.exact;
-        let projection = req.body.projection;
+        let find = req.query.find.toUpperCase();
+        let size = req.query.size;
+        let exact = req.query.exact;
+        let projection = req.query.projection;
         callMongoDbAtlasAPIv2(res, find, "github", size, exact, projection);
     }
 })
@@ -121,14 +112,9 @@ router.get('/github', (req, res)=>{
  * @param res response to send back
  **/
 function handleInvalidRequest(req, res){
-    if(Array.isArray(req.body))                                         // if the request send is an array
+    if(!req.query || !req.query.find || req.body.find === '')                                             // if the request don't contain the find field
     {
-        res.status(404).json({message: "Array is unacceptable"});
-        return false;
-    }
-    else if(!req.body || !req.body.find)                                             // if the request don't contain the find field
-    {
-        res.status(404).json({message : "Request properties invalid"});
+        res.status(404).json({message : "Request parameters invalid"});
         return false;
     }
     return true;
@@ -144,14 +130,23 @@ function handleInvalidRequest(req, res){
  * @param exact boolean to check wheter the string is exactly equals
  **/
 function callMongoDbAtlasAPIv2(res, find, field, responseSize, exact, projection){
-    if(responseSize==null || responseSize<=0){
+    
+    if(!responseSize || parseInt(responseSize)<=0 || isNaN(responseSize)){
         responseSize=1000;
+    }else{
+        responseSize = parseInt(responseSize);
     }
-    if(exact==null || (typeof exact !== "boolean")){
+
+    if(!exact){
         exact = false;
+    }else{
+        exact = (exact == 'true');
     }
-    if(!Array.isArray(projection)){
+    
+    if(!projection || !Array.isArray(JSON.parse(projection))){
         projection = null;
+    }else{
+        projection = JSON.parse(projection)
     }
     switch(field){
         case "name":
