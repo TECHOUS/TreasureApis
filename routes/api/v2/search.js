@@ -189,6 +189,7 @@ function searchName(res, find, field, responseSize, exact, projection){
         if(err){
             console.log("Error in "+field+" API: "+err);
         }else{
+            res.header("Access-Control-Allow-Origin","*")
             res.json(result);
         }
     })
@@ -216,6 +217,7 @@ function searchDescription(res, find, field, responseSize, exact, projection){
         if(err){
             console.log("Error in "+field+" API: "+err);
         }else{
+            res.header("Access-Control-Allow-Origin","*")
             res.json(result);
         }
     })
@@ -243,6 +245,7 @@ function searchDocs(res, find, field, responseSize, exact, projection){
         if(err){
             console.log("Error in "+field+" API: "+err);
         }else{
+            res.header("Access-Control-Allow-Origin","*")
             res.json(result);
         }
     })
@@ -270,6 +273,7 @@ function searchWebsite(res, find, field, responseSize, exact, projection){
         if(err){
             console.log("Error in "+field+" API: "+err);
         }else{
+            res.header("Access-Control-Allow-Origin","*")
             res.json(result);
         }
     })
@@ -297,6 +301,7 @@ function searchGithub(res, find, field, responseSize, exact, projection){
         if(err){
             console.log("Error in "+field+" API: "+err);
         }else{
+            res.header("Access-Control-Allow-Origin","*")
             res.json(result);
         }
     })

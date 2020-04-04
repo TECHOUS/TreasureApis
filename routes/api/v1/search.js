@@ -159,6 +159,7 @@ function callAppbaseAPIv1(res, find, field, responseSize){
                 result.push(arr[i]._source);
             }
         }
+        res.header("Access-Control-Allow-Origin","*")
         res.json(result);
     }).catch(error => {
         console.log("Error in "+field+" API: ", error)
