@@ -6,157 +6,243 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Treasure JS Available Apis</title>
     <link rel="icon" href="treasureapi.png"/>
+    <link rel="stylesheet" href="styles/index.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>TREASURE JS SUPPORTED GET APIs VERSION1</h1>
-    <div>
-        <h3>/api/v1/search</h3>
-        <pre>
-    {
-        "find": "moment"
-    }
-        </pre>
-    </div>
-
-    <div>
-        <h3>/api/v1/search/description</h3>
-        <pre>
-    {
-        "find": "mo"
-    }
-        </pre>
-    </div>
-    
-    <div>
-        <h3>/api/v1/search/docs</h3>
-        <pre>
-    {
-        "find": "mo"
-    }
-        </pre>
-    </div>
-
-    <div>
-        <h3>/api/v1/search/website</h3>
-        <pre>
-    {
-        "find": "mo"
-    }       
-        </pre>
-    </div>
-
-    <div>
-        <h3>/api/v1/search/github</h3>
-        <pre>
-    {
-        "find": "github"
-    }       
-        </pre>
-    </div>
-
-    <div>
-        <h3>/api/v1/search/other</h3>
-        <pre>
-    {
-        "find": "Transformers"
-    }
-        </pre>
-    </div>
-
-    <div>
-        <h4>Extra Parameters</h4>
+    <!-- HEADER -->
+    <header>
+        <div id="leftSidenav">
+            <a href="#v1_search" class="first greenNav">/api/v1/search</a>
+            <a href="#v1_search_description" class="second blueNav">/api/v1/search/description</a>
+            <a href="#v1_search_docs" class="third redNav">/api/v1/search/docs</a>
+            <a href="#v1_search_website" class="fourth blackNav">/api/v1/search/website</a>
+            <a href="#v1_search_github" class="fifth greenNav">/api/v1/search/github</a>
+            <a href="#v1_search_other" id="sixth" class="blueNav">/api/v1/search/other</a>
+        </div>
+        <div id="rightSidenav">
+            <a href="#v2_search" class="first greenNav">/api/v2/search</a>
+            <a href="#v2_search_description" class="second blueNav">/api/v2/search/description</a>
+            <a href="#v2_search_docs" class="third redNav">/api/v2/search/docs</a>
+            <a href="#v2_search_website" class="fourth blackNav">/api/v2/search/website</a>
+            <a href="#v2_search_github" class="fifth greenNav">/api/v2/search/github</a>
+        </div>
         <div>
-            <p>We can restrict the response size using</p>
-            <pre>
-    {
-        "size": 5
-    }
-            </pre>
+            <img src="treasureapi.png" />
+            <h1 id="header-h1">Treasure APIs</h1>
+        </div>
+    </header>
+
+    <!-- version1 section -->
+    <section>
+        <h2>APIs Version 1 Endpoints</h2>
+        <div class="endpoint-div" id="v1_search">
+            <h3>/api/v1/search</h3>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>
+                </span>
+            </p>
+            <p>This API will search the name of library which you will send in the find parameter</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - size of response list</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="endpoint-div" id="v1_search_description">
+            <h3>/api/v1/search/description</h3>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/description?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>
+                </span>
+            </p>
+            <p>This API will search the string in the description of the libraries.</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - size of response list</li>
+                </ul>
+            </div>
         </div>
         
-    </div>
+        <div class="endpoint-div" id="v1_search_docs">
+            <h3>/api/v1/search/docs</h3>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/docs?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>
+                </span>
+            </p>
+            <p>This API will search the docs of the libraries.</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - size of response list</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="endpoint-div" id="v1_search_website">
+            <h3>/api/v1/search/website</h3>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/website?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>
+                </span>
+            </p>
+            <p>This API will search the website of the libraries.</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - size of response list</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="endpoint-div" id="v1_search_github">
+            <h3>/api/v1/search/github</h3>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/github?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>
+                </span>
+            </p>
+            <p>This API will search the github of the libraries.</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - size of response list</li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="endpoint-div" id="v1_search_other">
+            <h3>/api/v1/search/other</h3>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/other?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>
+                </span>
+            </p>
+            <p>This API will search the other links of the libraries.</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - size of response list</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-    <hr/>
-    <!-- VERSION 2 APIS  -->
-    <h2>VERSION 2 APIS</h2>
-    <div>
-        <fieldset>
+    <hr class="horizontalRule"/>
+
+    <!-- version2 section -->
+    <section>
+        <h2>APIs Version 2 Endpoints</h2>
+        
+        <div class="endpoint-div" id="v2_search">
             <h3>/api/v2/search</h3>
-            <pre>
-    {
-        "find": "moment"
-    }        
-            </pre>
-            <p>case insensitive</p>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                </span>
+            </p>
             <p> this api will check the name from the start</p>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - We can restrict the response size using this</li>
+                    <li>exact - We can use exact boolean flag to get exact match response</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="endpoint-div" id="v2_search_description">
             <h3>/api/v2/search/description</h3>
-            <pre>
-    {
-        "find": "MobX"
-    }        
-            </pre>
-            <p>case insensitive</p>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/description?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                </span>
+            </p>
+            <p> this api will search the description of the libraries</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - We can restrict the response size using this</li>
+                    <li>exact - We can use exact boolean flag to get exact match response</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="endpoint-div" id="v2_search_docs">
             <h3>/api/v2/search/docs</h3>
-            <pre>
-    {
-        "find": "git"
-    }
-            </pre>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/docs?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                </span>
+            </p>
+            <p> this api will search the docs of the libraries</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - We can restrict the response size using this</li>
+                    <li>exact - We can use exact boolean flag to get exact match response</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="endpoint-div" id="v2_search_website">
             <h3>/api/v2/search/website</h3>
-            <pre>
-    {
-        "find": "git"
-    }
-            </pre>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/website?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                </span>
+            </p>
+            <p> this api will search the website of the libraries</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - We can restrict the response size using this</li>
+                    <li>exact - We can use exact boolean flag to get exact match response</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="endpoint-div" id="v2_search_github">
             <h3>/api/v2/search/github</h3>
-            <pre>
-    {
-        "find": "git"
-    }
-            </pre>
-        </fieldset>
-    </div>
-    <div>
-        <h4>Extra Parameters</h4>
-        <div>
-            <p><u>We can restrict the response size using</u></p>
-            <pre>
-    {
-        "size": 5
-    }
-            </pre>
+            <p>API URL: 
+                <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/github?
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                </span>
+            </p>
+            <p> this api will search the github of the libraries</p>
+            <h4>Query Parameters</h4>
+            <div>
+                <ul>
+                    <li>find - string to search</li>
+                    <li>size - We can restrict the response size using this</li>
+                    <li>exact - We can use exact boolean flag to get exact match response</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <p><u>We can use exact boolean flag to get exact match response</u></p>
-            <pre>
-    {
-        "exact": true
-    }
-            </pre>
-        </div>
-        <div>
-            <p><u>We can add the projection i.e keys we need in the response</u></p>
-            <pre>
-    {
-        "projection": ["name"]
-    }
-            </pre>
+
+        <div class="endpoint-div" id="projectionList">
+            <h3>Projection Values</h3>
             <p>You can only add the below fields in projection array</p>
             <ol>
                 <li>""</li>
@@ -169,6 +255,11 @@
                 <li>"other"</li>
             </ol>
         </div>
-    </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+        &copy; TechOUs &copy; TreasureAPIs 2020
+    </footer>
 </body>
 </html>

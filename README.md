@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="logos/treasureapi.png" title="treasure api"/>
+    <img src="public/treasureapi.png" title="treasure api"/>
     <h1 align="center">TREASURE APIS</h1>
     <h4 align="center">
         <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/techous/treasureapis">
@@ -27,15 +27,14 @@ For getting started using the treasurejs search apis. Follow the below steps:
 * Install the **postman** for hitting the API EndPoint. If you don't have you can install it [here](https://www.postman.com/).
 * For doing the sample request open the **postman**.
 * Copy the url `https://treasurejsapi.herokuapp.com/api/v2/search` in *Enter Request URL box*
-* Copy the below request body in body of request
+* Click on **params** and add below key values
 
 ```json
-{
-    "find": "async",
-    "exact": true
-}
+find: async
+exact: true
 ```
 
+* After entering your url will become `https://treasurejsapi.herokuapp.com/api/v2/search?find=async&exact=true`
 * Select the request method as **GET** and send the request.
 * See the [API Reference Documentation](#api-reference-documentation) and append the api path after the url like: `https://treasurejsapi.herokuapp.com/api/v1/search/description`
 
@@ -44,10 +43,14 @@ For getting started using the treasurejs search apis. Follow the below steps:
 Select the langauge which you want to hit our apis below:
 
 * [JavaScript](https://github.com/TechOUs/TreasureApis/wiki/JavaScript)
+* [Java](https://github.com/TechOUs/TreasureApis/wiki/JAVA)
+* [NodeJS](https://github.com/TechOUs/TreasureApis/wiki/NodeJS)
+* [Python](https://github.com/TechOUs/TreasureApis/wiki/Python)
+* [Browser](https://github.com/TechOUs/TreasureApis/wiki/Browser)
 
 ## API Reference Documentation
 
-For API reference see our [website](https://treasurejsapi.herokuapp.com/)
+For API reference see our [website](https://treasurejsapi.herokuapp.com/).
 
 ## Contributing to Treasure APIs
 
