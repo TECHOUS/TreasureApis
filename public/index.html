@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Treasure JS Available Apis</title>
-    <link rel="icon" href="treasureapi.png"/>
-    <link rel="stylesheet" href="styles/index.css"/>
+    <link rel="icon" href="treasureapi.png" />
+    <link rel="stylesheet" href="styles/index.css" />
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="scripts/index.js" defer></script>
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
+
 <body>
     <!-- HEADER -->
     <header>
@@ -29,17 +35,28 @@
             <a href="#v2_search_github" class="fifth greenNav">/api/v2/search/github</a>
         </div>
         <div>
-            <img src="treasureapi.png" />
+            <div>
+                <i class="fas fa-8x fa-meteor" id="modeButton"></i>
+            </div>
+            <div id="meteorBack"></div>
             <h1 id="header-h1">Treasure APIs</h1>
         </div>
     </header>
+
+    <!-- NAVIGATION BUTTON -->
+    <div>
+        <button" id="navButton" title="click here to go top">
+            <i class="fab fa-2x fa-autoprefixer"></i>
+        </button>
+    </div>
+
 
     <!-- version1 section -->
     <section>
         <h2>APIs Version 1 Endpoints</h2>
         <div class="endpoint-div" id="v1_search">
             <h3>/api/v1/search</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search?
                     <span class="green">find=as</span>&<span class="green">size=1</span>
                 </span>
@@ -53,10 +70,10 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="endpoint-div" id="v1_search_description">
             <h3>/api/v1/search/description</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/description?
                     <span class="green">find=as</span>&<span class="green">size=1</span>
                 </span>
@@ -70,10 +87,10 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="endpoint-div" id="v1_search_docs">
             <h3>/api/v1/search/docs</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/docs?
                     <span class="green">find=as</span>&<span class="green">size=1</span>
                 </span>
@@ -87,10 +104,10 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="endpoint-div" id="v1_search_website">
             <h3>/api/v1/search/website</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/website?
                     <span class="green">find=as</span>&<span class="green">size=1</span>
                 </span>
@@ -104,10 +121,10 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="endpoint-div" id="v1_search_github">
             <h3>/api/v1/search/github</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/github?
                     <span class="green">find=as</span>&<span class="green">size=1</span>
                 </span>
@@ -121,10 +138,10 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="endpoint-div" id="v1_search_other">
             <h3>/api/v1/search/other</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v1/search/other?
                     <span class="green">find=as</span>&<span class="green">size=1</span>
                 </span>
@@ -140,17 +157,18 @@
         </div>
     </section>
 
-    <hr class="horizontalRule"/>
+    <hr class="horizontalRule" />
 
     <!-- version2 section -->
     <section>
         <h2>APIs Version 2 Endpoints</h2>
-        
+
         <div class="endpoint-div" id="v2_search">
             <h3>/api/v2/search</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search?
-                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span
+                        class="green">exact=false</span>&<span class="green">projection=["name"]</span>
                 </span>
             </p>
             <p> this api will check the name from the start</p>
@@ -160,16 +178,20 @@
                     <li>find - string to search</li>
                     <li>size - We can restrict the response size using this</li>
                     <li>exact - We can use exact boolean flag to get exact match response</li>
-                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the
+                        values
+                        you can use with projection to work <a href="#projectionList" class="projectionLink">here</a>.
+                    </li>
                 </ul>
             </div>
         </div>
-        
+
         <div class="endpoint-div" id="v2_search_description">
             <h3>/api/v2/search/description</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/description?
-                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span
+                        class="green">exact=false</span>&<span class="green">projection=["name"]</span>
                 </span>
             </p>
             <p> this api will search the description of the libraries</p>
@@ -179,16 +201,20 @@
                     <li>find - string to search</li>
                     <li>size - We can restrict the response size using this</li>
                     <li>exact - We can use exact boolean flag to get exact match response</li>
-                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the
+                        values
+                        you can use with projection to work <a href="#projectionList" class="projectionLink">here</a>.
+                    </li>
                 </ul>
             </div>
         </div>
 
         <div class="endpoint-div" id="v2_search_docs">
             <h3>/api/v2/search/docs</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/docs?
-                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span
+                        class="green">exact=false</span>&<span class="green">projection=["name"]</span>
                 </span>
             </p>
             <p> this api will search the docs of the libraries</p>
@@ -198,16 +224,20 @@
                     <li>find - string to search</li>
                     <li>size - We can restrict the response size using this</li>
                     <li>exact - We can use exact boolean flag to get exact match response</li>
-                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the
+                        values
+                        you can use with projection to work <a href="#projectionList" class="projectionLink">here</a>.
+                    </li>
                 </ul>
             </div>
         </div>
 
         <div class="endpoint-div" id="v2_search_website">
             <h3>/api/v2/search/website</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/website?
-                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span
+                        class="green">exact=false</span>&<span class="green">projection=["name"]</span>
                 </span>
             </p>
             <p> this api will search the website of the libraries</p>
@@ -217,16 +247,20 @@
                     <li>find - string to search</li>
                     <li>size - We can restrict the response size using this</li>
                     <li>exact - We can use exact boolean flag to get exact match response</li>
-                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the
+                        values
+                        you can use with projection to work <a href="#projectionList" class="projectionLink">here</a>.
+                    </li>
                 </ul>
             </div>
         </div>
 
         <div class="endpoint-div" id="v2_search_github">
             <h3>/api/v2/search/github</h3>
-            <p>API URL: 
+            <p>API URL:
                 <span class="blue">https://treasurejsapi.herokuapp.com/api/v2/search/github?
-                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span class="green">exact=false</span>&<span class="green">projection=["name"]</span>
+                    <span class="green">find=as</span>&<span class="green">size=1</span>&<span
+                        class="green">exact=false</span>&<span class="green">projection=["name"]</span>
                 </span>
             </p>
             <p> this api will search the github of the libraries</p>
@@ -236,7 +270,10 @@
                     <li>find - string to search</li>
                     <li>size - We can restrict the response size using this</li>
                     <li>exact - We can use exact boolean flag to get exact match response</li>
-                    <li>projection - We can restrict the values we need from the API response. You can see the values you can use with projection to work <a href="#projectionList">here</a>.</li>
+                    <li>projection - We can restrict the values we need from the API response. You can see the
+                        values
+                        you can use with projection to work <a href="#projectionList" class="projectionLink">here</a>.
+                    </li>
                 </ul>
             </div>
         </div>
@@ -262,4 +299,5 @@
         &copy; TechOUs &copy; TreasureAPIs 2020
     </footer>
 </body>
+
 </html>

@@ -1,117 +1,174 @@
-*{
-    padding: 0;
-    margin: 0;
-    scroll-behavior: smooth;
+* {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
 }
-h1,h2,h3,h4,h5,h6{
-    font-family: 'Roboto', sans-serif;
+
+#modeButton {
+  color: #f89494;
 }
-body{
-    font-family: 'Open Sans', sans-serif;
+
+#meteorBack {
+  background-color: #ecd501;
+  width: 97px;
+  height: 70px;
+  z-index: -1;
+  text-align: center;
+  margin: auto;
+  margin-top: -110px;
+  margin-bottom: 30px;
+  border-bottom-right-radius: 55px;
 }
-header,h2{
-    text-align: center;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto', sans-serif;
 }
-#header-h1{
-    margin-top: 10px;
-    margin-bottom: 10px;
+body {
+  font-family: 'Open Sans', sans-serif;
 }
-.endpoint-div{
-    border: 2px solid #f89494;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 40px;
+header,
+h2 {
+  text-align: center;
+}
+#header-h1 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.endpoint-div {
+  border: 2px solid #f89494;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 40px;
 }
 .endpoint-div > h3,
 .endpoint-div > h4,
 .endpoint-div > p,
 .endpoint-div > div > ul,
-.endpoint-div > ol{
-    padding: 10px;
+.endpoint-div > ol {
+  padding: 10px;
 }
 
-.blue{
-    color: blue;
+.blue {
+  color: blue;
 }
-.green{
-    color: green;
+.green {
+  color: green;
 }
-.horizontalRule{
-    width: 95%;
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 50px;
+.fa-meteor {
+  padding: 25px;
 }
-@media screen and (max-width: 553px){
-    .endpoint-div{
-        overflow: scroll;
-    }
+.horizontalRule {
+  width: 95%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
-
-footer{
-    background-color: #f89494;
-    padding: 20px;
-    font-weight: bold;
-    text-align: center;
-}
-
 
 /* side nav */
-#leftSidenav{
-    float: left;
+#leftSidenav {
+  float: left;
 }
 #leftSidenav a {
-    position: fixed;
-    left: -200px;
-    transition: 0.3s;
-    padding: 15px;
-    width: 205px;
-    text-decoration: none;
-    font-size: 15px;
-    color: white;
-    border-radius: 0 5px 5px 0;
-    text-align: left;
+  position: fixed;
+  left: -200px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 205px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  text-align: left;
 }
 #leftSidenav a:hover {
   left: 0;
 }
 
-#rightSidenav{
-    float: right;
+#rightSidenav {
+  float: right;
 }
 #rightSidenav a {
-    position: fixed;
-    right: -200px;
-    transition: 0.3s;
-    padding: 15px;
-    width: 205px;
-    text-decoration: none;
-    font-size: 15px;
-    color: white;
-    border-radius: 5px 0px 0px 5px;
-    text-align: right;
+  position: fixed;
+  right: -200px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 205px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  border-radius: 5px 0px 0px 5px;
+  text-align: right;
 }
 
 #rightSidenav a:hover {
   right: 0;
 }
 
-.greenNav{
-    background-color: #4CAF50;
+.greenNav {
+  background-color: #4caf50;
 }
-.blueNav{
-    background-color: #2196F3;
+.blueNav {
+  background-color: #2196f3;
 }
-.redNav{
-    background-color: #f44336;
+.redNav {
+  background-color: #f44336;
 }
-.blackNav{
-    background-color: #555;
+.blackNav {
+  background-color: #555;
 }
 
-.first   { top: 20px;  }
-.second  { top: 80px;  }
-.third   { top: 140px; }
-.fourth  { top: 200px; }
-.fifth   { top: 260px; }
-#sixth   { top: 320px; }
+.first {
+  top: 20px;
+}
+.second {
+  top: 80px;
+}
+.third {
+  top: 140px;
+}
+.fourth {
+  top: 200px;
+}
+.fifth {
+  top: 260px;
+}
+#sixth {
+  top: 320px;
+}
+
+/* NAVIGATION button */
+#navButton {
+  /* display: none; */
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  border: 2px solid cyan;
+  outline: none;
+  background-color: #f89494;
+  color: #ecd501;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+footer {
+  background-color: #f89494;
+  padding: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+@media screen and (max-width: 553px) {
+  .endpoint-div {
+    overflow: scroll;
+  }
+  footer {
+    text-align: left;
+  }
+}
