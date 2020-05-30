@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="public/treasureapi.png" title="treasure api"/>
+    <img src="public/icons/treasureApiLogo.png" title="treasure api"/>
     <h1 align="center">TREASURE APIS</h1>
     <h4 align="center">
         <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/techous/treasureapis">
@@ -53,6 +53,8 @@ Select the langauge which you want to hit our apis below:
 For API reference see our [website](https://treasurejsapi.herokuapp.com/).
 
 ## Contributing to Treasure APIs
+
+See the full details [here](.github/CONTRIBUTING.md)
 
 ## LICENSE
 
