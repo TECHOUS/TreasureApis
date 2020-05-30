@@ -13,7 +13,8 @@
 const express = require('express');
 const router = express.Router();
 const Appbase = require("appbase-js");
-require('dotenv').config();
+// excluding dotenv config from production
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 var appbaseRef = Appbase({
 	url: process.env.APPBASE_URL,

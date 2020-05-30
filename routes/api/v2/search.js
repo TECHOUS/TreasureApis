@@ -12,7 +12,8 @@ const express = require('express');
 const router = express.Router();
 const myModel = require('../../../models/myModel');
 const mongoose = require('mongoose');
-require('dotenv').config();
+// excluding dotenv config from production
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 mongoose.connect(process.env.MONGO_DB, {useNewUrlParser: true});
 

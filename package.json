@@ -19,12 +19,14 @@
   "homepage": "https://github.com/TechOUs/TreasureApis#readme",
   "dependencies": {
     "appbase-js": "^4.0.2-beta.6",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.2.7",
     "mongoose": "^5.6.2"
   },
   "engines": {
     "node": "10.x"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
