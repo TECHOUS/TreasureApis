@@ -1,6 +1,6 @@
-const http = require('http');
+const https = require('https');
 
-http.get('http://localhost:5000/api/v1/search?find=as', (resp) => {
+https.get('https://treasurejsapi.herokuapp.com/api/v1/search?find=as', (resp) => {
   let data = '';
 
   // A chunk of data has been recieved.

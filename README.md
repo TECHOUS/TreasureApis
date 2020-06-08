@@ -18,7 +18,7 @@ This repository contains the Treasure Searching APIs code for searching the data
 
 ## Supported Languages
 
-<img src="logos/nodejs.png" height="60px"/><img src="logos/js.png" height="60px"/><img src="logos/java.png" height="60px"/><img src="logos/py.png" height="60px"/>
+<img src="public/logos/nodejs.png" height="60px"/><img src="public/logos/js.png" height="60px"/><img src="public/logos/java.png" height="60px"/><img src="public/logos/py.png" height="60px"/>
 
 ## Getting Started
 
