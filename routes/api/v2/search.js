@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 // excluding dotenv config from production
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
-mongoose.connect(process.env.MONGO_DB, {useNewUrlParser: true});
+mongoose.connect(process.env.MONGO_DB, {useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true});
 
 const db = mongoose.connection;
 db.on('error',console.error.bind(console, 'Connection error:'));

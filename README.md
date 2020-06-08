@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="public/icons/treasureApiLogo.png" title="treasure api"/>
+    <img src="public/icons/treasureApisLogo.png" title="treasure api"/>
     <h1 align="center">TREASURE APIS</h1>
     <h4 align="center">
         <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/techous/treasureapis">

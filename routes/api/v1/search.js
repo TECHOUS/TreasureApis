@@ -13,9 +13,11 @@
 const express = require('express');
 const router = express.Router();
 const Appbase = require("appbase-js");
+
 // excluding dotenv config from production
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
+// appbase reference for connection
 var appbaseRef = Appbase({
 	url: process.env.APPBASE_URL,
 	app: process.env.APPBASE_APP,
@@ -24,90 +26,121 @@ var appbaseRef = Appbase({
 
 /**
  * API:
- * url: /api/v1/search
- * method: GET
+ * @endpoint: /api/v1/search
+ * @url: https://treasurejsapi.herokuapp.com/api/v1/search?find=m
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v1/search?find=m
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * query @param find
+ * query @param size
+ * @return response
  **/
 router.get('/',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        callAppbaseAPIv1(res, find, "name", size);
+        const {find, size} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "name", size);
     }
 });
 
 /**
  * API:
- * url: /api/v1/search/description
- * method: GET
+ * @endpoint: /api/v1/search/description
+ * @url: https://treasurejsapi.herokuapp.com/api/v1/search/description?find=mo
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v1/search/description?find=mo
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * query @param find
+ * query @param size
+ * @return response
  **/
 router.get('/description',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        callAppbaseAPIv1(res, find, "description", size);
+        const {find, size} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "description", size);
     }
 });
 
 /**
  * API:
- * url: /api/v1/search/docs
- * method: GET
+ * @endpoint: /api/v1/search/docs
+ * @url: https://treasurejsapi.herokuapp.com/api/v1/search/docs?find=mo
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v1/search/docs?find=mo
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * query @param find
+ * query @param size
+ * @return response
  **/
 router.get('/docs',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        callAppbaseAPIv1(res, find, "docs", size);
+        const {find, size} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "docs", size);
     }
 });
 
 /**
  * API:
- * url: /api/v1/search/website
- * method: GET
+ * @endpoint: /api/v1/search/website
+ * @url https://treasurejsapi.herokuapp.com/api/v1/search/website?find=https
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v1/search/website?find=https
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * query @param find
+ * query @param size
+ * @return response
  **/
 router.get('/website',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        callAppbaseAPIv1(res, find, "website", size);
+        const {find, size} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "website", size);
     }
 });
 
 /**
  * API:
- * url: /api/search/github
- * method: GET
+ * @endpoint: /api/search/github
+ * @url: https://treasurejsapi.herokuapp.com/api/v1/search/github?find=react
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v1/search/github?find=react
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * query @param find
+ * query @param size
+ * @return response
  **/
 router.get('/github', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        callAppbaseAPIv1(res, find, "github", size);
+        const {find, size} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "github", size);
     }
 })
 
 /**
  * API:
- * url: /api/search/other
- * method: GET
- * request: https://treasurejsapi.herokuapp.com/api/v1/search/other?find=react
+ * @endpoint: /api/search/other
+ * @url: https://treasurejsapi.herokuapp.com/api/v1/search/other?find=react
+ * 
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * query @param find
+ * query @param size
+ * @return response
  **/
 router.get('/other', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        callAppbaseAPIv1(res, find, "other", size);
+        const {find, size} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "other", size);
     }
 })
 
@@ -116,11 +149,12 @@ router.get('/other', (req, res)=>{
  * 
  * @param req request to handle
  * @param res response to send back
+ * @return 
  **/
 function handleInvalidRequest(req, res){
-    if(!req.query || !req.query.find || req.body.find === '')                                             // if the request don't contain the find field
+    if(!req.query.find || req.query.find === '')                                             // if the request don't contain the find field
     {
-        res.status(404).json({message : "Request parameters invalid"});
+        res.status(400).json({message : "Request Parameters Invalid"});
         return false;
     }
     return true;
