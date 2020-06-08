@@ -1,6 +1,6 @@
 const http = require('http');
 
-http.get('http://localhost:5000/api/v1/search?find=da', (resp) => {
+http.get('http://localhost:5000/api/v1/search?find=asy', (resp) => {
     let data = '';
 
     // A chunk of data has been recieved.

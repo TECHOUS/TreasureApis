@@ -18,6 +18,14 @@ app.use('/api/v1/search',require('./routes/api/v1/search'));
 // set the api version 2 path to routes folder
 app.use('/api/v2/search',require('./routes/api/v2/search'));
 
+// for invalid routes
+app.get("*", (req,res)=>{
+    res.status(400).json({
+        message: "Bad Request!!! Try any valid API",
+        status: 400
+    });
+})
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT,()=>{

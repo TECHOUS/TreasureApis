@@ -12,97 +12,137 @@ const express = require('express');
 const router = express.Router();
 const myModel = require('../../../models/myModel');
 const mongoose = require('mongoose');
+
 // excluding dotenv config from production
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
-mongoose.connect(process.env.MONGO_DB, {useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true});
+// mongodb connection
+mongoose.connect(process.env.MONGO_DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+});
 
 const db = mongoose.connection;
 db.on('error',console.error.bind(console, 'Connection error:'));
 
 /**
  * API:
- * url: /api/v2/search
- * method: GET
+ * @endpoint: /api/v2/search
+ * @url: https://treasurejsapi.herokuapp.com/api/v2/search?find=async
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v2/search?find=async  
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * Query Parameters
+ * @param find - string to search
+ * @param size - size of the response
+ * @param exact - find with exact match or not
+ * @param projection - array of properties
+ * 
+ * @return response
  **/
 router.get('/',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        let exact = req.query.exact;
-        let projection = req.query.projection;
-        callMongoDbAtlasAPIv2(res, find, "name", size, exact, projection);
+        const {find, size, exact, projection} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "name", size, exact, projection);
     }
 });
 
 /**
  * API:
- * url: /api/v2/search/description
- * method: GET
+ * @endpoint: /api/v2/search/description
+ * @url: https://treasurejsapi.herokuapp.com/api/v2/search/description?find=mo
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v2/search/description?find=mo
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * Query Parameters
+ * @param find - string to search
+ * @param size - size of the response
+ * @param exact - find with exact match or not
+ * @param projection - array of properties
+ * 
+ * @return response
  **/
 router.get('/description',(req,res)=>{
-    console.log(req.query);
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        let exact = req.query.exact;
-        let projection = req.query.projection;
-        callMongoDbAtlasAPIv2(res, find, "description", size, exact, projection);
+        const {find, size, exact, projection} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "description", size, exact, projection);
     }
 });
 
 /**
  * API:
- * url: /api/v2/search/docs
- * method: GET
+ * @endpoint: /api/v2/search/docs
+ * @url: https://treasurejsapi.herokuapp.com/api/v2/search/docs?find=async
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v2/search/docs?find=async
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * Query Parameters
+ * @param find - string to search
+ * @param size - size of the response
+ * @param exact - find with exact match or not
+ * @param projection - array of properties
+ * 
+ * @return response
  **/
 router.get('/docs',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        let exact = req.query.exact;
-        let projection = req.query.projection;
-        callMongoDbAtlasAPIv2(res, find, "docs", size, exact, projection);
+        const {find, size, exact, projection} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "docs", size, exact, projection);
     }
 });
 
 /**
  * API:
- * url: /api/search/website
- * method: GET
+ * @endpoint: /api/search/website
+ * @url: https://treasurejsapi.herokuapp.com/api/v2/search/website?find=async
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v2/search/website?find=async 
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * Query Parameters
+ * @param find - string to search
+ * @param size - size of the response
+ * @param exact - find with exact match or not
+ * @param projection - array of properties
+ * 
+ * @return response
  **/
 router.get('/website',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        let exact = req.query.exact;
-        let projection = req.query.projection;
-        callMongoDbAtlasAPIv2(res, find, "website", size, exact, projection);
+        const {find, size, exact, projection} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "website", size, exact, projection);
     }
 });
 
 /**
  * API:
- * url: /api/search/github
- * method: GET
+ * @endpoint: /api/search/github
+ * @url: https://treasurejsapi.herokuapp.com/api/v2/search/github?find=async
  * 
- * request: https://treasurejsapi.herokuapp.com/api/v2/search/github?find=async
+ * @method GET
+ * @access public
+ * @author techous
+ * 
+ * Query Parameters
+ * @param find - string to search
+ * @param size - size of the response
+ * @param exact - find with exact match or not
+ * @param projection - array of properties
+ * 
+ * @return response
  **/
 router.get('/github', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        let find = req.query.find.toUpperCase();
-        let size = req.query.size;
-        let exact = req.query.exact;
-        let projection = req.query.projection;
-        callMongoDbAtlasAPIv2(res, find, "github", size, exact, projection);
+        const {find, size, exact, projection} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "github", size, exact, projection);
     }
 })
 
@@ -113,9 +153,12 @@ router.get('/github', (req, res)=>{
  * @param res response to send back
  **/
 function handleInvalidRequest(req, res){
-    if(!req.query || !req.query.find || req.body.find === '')                                             // if the request don't contain the find field
+    if(!req.query.find || req.query.find === '' || req.query.find==='*')                                             // if the request don't contain the find field
     {
-        res.status(404).json({message : "Request parameters invalid"});
+        res.status(400).json({
+            message : "Request Parameters Invalid",
+            status: 400
+        });
         return false;
     }
     return true;
