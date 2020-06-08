@@ -1,6 +1,6 @@
 {
   "name": "treasurejsapis",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "This is treasure js apis repo",
   "main": "index.js",
   "scripts": {
