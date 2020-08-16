@@ -164,11 +164,39 @@ footer {
   text-align: center;
 }
 
-@media screen and (max-width: 553px) {
+#releaseInfo{
+  position: absolute;
+  top: 0;
+  margin-left: 50px;
+  margin-top: 30px;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+td,th{
+  border: 2px solid #f89494;
+  padding: 5px;
+}
+
+th{
+  text-align: left;
+}
+
+@media screen and (max-width: 597px) {
   .endpoint-div {
     overflow: scroll;
   }
   footer {
     text-align: left;
+  }
+  table{
+    width: 100%;
+  }
+}
+@media screen and (max-width: 400px){
+  table{
+    width: 150%;
   }
 }
