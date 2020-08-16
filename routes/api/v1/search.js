@@ -33,14 +33,17 @@ var appbaseRef = Appbase({
  * @access public
  * @author techous
  * 
- * query @param find
- * query @param size
+ * query paramaters
+ * @param find
+ * @param size
+ * @param count
+ * 
  * @return response
  **/
 router.get('/',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size} = req.query;
-        callAppbaseAPIv1(res, find.toUpperCase(), "name", size);
+        const {find, size, count} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "name", size, count);
     }
 });
 
@@ -53,14 +56,17 @@ router.get('/',(req,res)=>{
  * @access public
  * @author techous
  * 
- * query @param find
- * query @param size
+ * query parameters
+ * @param find
+ * @param size
+ * @param count
+ * 
  * @return response
  **/
 router.get('/description',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size} = req.query;
-        callAppbaseAPIv1(res, find.toUpperCase(), "description", size);
+        const {find, size, count} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "description", size, count);
     }
 });
 
@@ -73,14 +79,17 @@ router.get('/description',(req,res)=>{
  * @access public
  * @author techous
  * 
- * query @param find
- * query @param size
+ * query parameters
+ * @param find
+ * @param size
+ * @param count
+ * 
  * @return response
  **/
 router.get('/docs',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size} = req.query;
-        callAppbaseAPIv1(res, find.toUpperCase(), "docs", size);
+        const {find, size, count} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "docs", size, count);
     }
 });
 
@@ -93,14 +102,17 @@ router.get('/docs',(req,res)=>{
  * @access public
  * @author techous
  * 
- * query @param find
- * query @param size
+ * query parameters
+ * @param find
+ * @param size
+ * @param count
+ * 
  * @return response
  **/
 router.get('/website',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size} = req.query;
-        callAppbaseAPIv1(res, find.toUpperCase(), "website", size);
+        const {find, size, count} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "website", size, count);
     }
 });
 
@@ -113,14 +125,17 @@ router.get('/website',(req,res)=>{
  * @access public
  * @author techous
  * 
- * query @param find
- * query @param size
+ * query parameters
+ * @param find
+ * @param size
+ * @param count
+ * 
  * @return response
  **/
 router.get('/github', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size} = req.query;
-        callAppbaseAPIv1(res, find.toUpperCase(), "github", size);
+        const {find, size, count} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "github", size, count);
     }
 })
 
@@ -133,14 +148,17 @@ router.get('/github', (req, res)=>{
  * @access public
  * @author techous
  * 
- * query @param find
- * query @param size
+ * query parameters
+ * @param find
+ * @param size
+ * @param count
+ * 
  * @return response
  **/
 router.get('/other', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size} = req.query;
-        callAppbaseAPIv1(res, find.toUpperCase(), "other", size);
+        const {find, size, count} = req.query;
+        callAppbaseAPIv1(res, find.toUpperCase(), "other", size, count);
     }
 })
 
@@ -149,6 +167,7 @@ router.get('/other', (req, res)=>{
  * 
  * @param req request to handle
  * @param res response to send back
+ * @author techous
  * @return 
  **/
 function handleInvalidRequest(req, res){
@@ -166,13 +185,21 @@ function handleInvalidRequest(req, res){
  * @param res response to send response
  * @param find query to find
  * @param field field to search data
+ * 
+ * @author techous
  **/
-function callAppbaseAPIv1(res, find, field, responseSize){
+function callAppbaseAPIv1(res, find, field, responseSize, count){
     
     if(!responseSize || parseInt(responseSize)<=0 || isNaN(responseSize)){
         responseSize=1000;
     }else{
         responseSize = parseInt(responseSize);
+    }
+
+    if(!count){
+        count = false;
+    }else{
+        count = (count == 'true');
     }
 
     find = find+"*";
@@ -187,15 +214,21 @@ function callAppbaseAPIv1(res, find, field, responseSize){
         }
     }).then(response => {
         let arr = response.hits.hits;
-        let result = [];
-        if(arr!=null && arr.length > 0){
-            for(let i=0;i<arr.length;i++){
-                arr[i]._source.other = JSON.parse(arr[i]._source.other);
-                result.push(arr[i]._source);
-            }
-        }
+
         res.header("Access-Control-Allow-Origin","*")
-        res.json(result);
+        if(count){
+            res.json({totalCount: arr.length})
+        }else{
+            let result = [];
+            if(arr!=null && arr.length > 0){
+                for(let i=0;i<arr.length;i++){
+                    arr[i]._source.other = JSON.parse(arr[i]._source.other);
+                    result.push(arr[i]._source);
+                }
+            }    
+            res.json(result);
+        }
+        
     }).catch(error => {
         console.log("Error in "+field+" API: ", error)
     });

@@ -40,13 +40,14 @@ db.on('error',console.error.bind(console, 'Connection error:'));
  * @param size - size of the response
  * @param exact - find with exact match or not
  * @param projection - array of properties
+ * @param count - return the count of the response only
  * 
  * @return response
  **/
 router.get('/',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size, exact, projection} = req.query;
-        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "name", size, exact, projection);
+        const {find, size, exact, projection, count} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "name", size, exact, projection, count);
     }
 });
 
@@ -64,13 +65,14 @@ router.get('/',(req,res)=>{
  * @param size - size of the response
  * @param exact - find with exact match or not
  * @param projection - array of properties
+ * @param count - return the count of the response only
  * 
  * @return response
  **/
 router.get('/description',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size, exact, projection} = req.query;
-        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "description", size, exact, projection);
+        const {find, size, exact, projection, count} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "description", size, exact, projection, count);
     }
 });
 
@@ -88,13 +90,14 @@ router.get('/description',(req,res)=>{
  * @param size - size of the response
  * @param exact - find with exact match or not
  * @param projection - array of properties
+ * @param count - return the count of the response only
  * 
  * @return response
  **/
 router.get('/docs',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size, exact, projection} = req.query;
-        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "docs", size, exact, projection);
+        const {find, size, exact, projection, count} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "docs", size, exact, projection, count);
     }
 });
 
@@ -112,13 +115,14 @@ router.get('/docs',(req,res)=>{
  * @param size - size of the response
  * @param exact - find with exact match or not
  * @param projection - array of properties
+ * @param count - return the count of the response only
  * 
  * @return response
  **/
 router.get('/website',(req,res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size, exact, projection} = req.query;
-        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "website", size, exact, projection);
+        const {find, size, exact, projection, count} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "website", size, exact, projection, count);
     }
 });
 
@@ -136,13 +140,14 @@ router.get('/website',(req,res)=>{
  * @param size - size of the response
  * @param exact - find with exact match or not
  * @param projection - array of properties
+ * @param count - return the count of the response only
  * 
  * @return response
  **/
 router.get('/github', (req, res)=>{
     if(handleInvalidRequest(req, res)){
-        const {find, size, exact, projection} = req.query;
-        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "github", size, exact, projection);
+        const {find, size, exact, projection, count} = req.query;
+        callMongoDbAtlasAPIv2(res, find.toUpperCase(), "github", size, exact, projection, count);
     }
 })
 
@@ -151,9 +156,10 @@ router.get('/github', (req, res)=>{
  * 
  * @param req request to handle
  * @param res response to send back
+ * @author techous
  **/
 function handleInvalidRequest(req, res){
-    if(!req.query.find || req.query.find === '' || req.query.find==='*')                                             // if the request don't contain the find field
+    if(!req.query.find || req.query.find === '' || req.query.find==='*')                       // if the request don't contain the find field
     {
         res.status(400).json({
             message : "Request Parameters Invalid",
@@ -172,8 +178,10 @@ function handleInvalidRequest(req, res){
  * @param field is column which we want to search
  * @param responseSize size of response we want
  * @param exact boolean to check wheter the string is exactly equals
+ * @param count return the count of the response only
+ * @author techous
  **/
-function callMongoDbAtlasAPIv2(res, find, field, responseSize, exact, projection){
+function callMongoDbAtlasAPIv2(res, find, field, responseSize, exact, projection, count){
     
     if(!responseSize || parseInt(responseSize)<=0 || isNaN(responseSize)){
         responseSize=1000;
@@ -186,6 +194,12 @@ function callMongoDbAtlasAPIv2(res, find, field, responseSize, exact, projection
     }else{
         exact = (exact == 'true');
     }
+
+    if(!count){
+        count = false;
+    }else{
+        count = (count == 'true');
+    }
     
     if(!projection || !Array.isArray(JSON.parse(projection))){
         projection = null;
@@ -194,19 +208,19 @@ function callMongoDbAtlasAPIv2(res, find, field, responseSize, exact, projection
     }
     switch(field){
         case "name":
-            searchName(res, find, field, responseSize, exact, projection);
+            searchName(res, find, field, responseSize, exact, projection, count);
             break;
         case "description":
-            searchDescription(res, find, field, responseSize, exact, projection);
+            searchDescription(res, find, field, responseSize, exact, projection, count);
             break;
         case "docs":
-            searchDocs(res, find, field, responseSize, exact, projection);
+            searchDocs(res, find, field, responseSize, exact, projection, count);
             break;
         case "website":
-            searchWebsite(res, find, field, responseSize, exact, projection);
+            searchWebsite(res, find, field, responseSize, exact, projection, count);
             break;
         case "github":
-            searchGithub(res, find, field, responseSize, exact, projection);
+            searchGithub(res, find, field, responseSize, exact, projection, count);
             break;
     }
 }
@@ -219,8 +233,11 @@ function callMongoDbAtlasAPIv2(res, find, field, responseSize, exact, projection
  * @param field name to search
  * @param responseSize
  * @param exact if the match has to be exact
+ * @param count return the count of the response only
+ * @author techous
+ * 
  **/
-function searchName(res, find, field, responseSize, exact, projection){
+function searchName(res, find, field, responseSize, exact, projection, count){
     let expression = "";
     if(exact){
         expression = new RegExp('^' + find + '$', 'i');
@@ -233,8 +250,8 @@ function searchName(res, find, field, responseSize, exact, projection){
         if(err){
             console.log("Error in "+field+" API: "+err);
         }else{
-            res.header("Access-Control-Allow-Origin","*")
-            res.json(result);
+            res.header("Access-Control-Allow-Origin","*");
+            count ? res.json({totalCount: result.length}) : res.json(result);
         }
     })
 }
@@ -247,8 +264,10 @@ function searchName(res, find, field, responseSize, exact, projection){
  * @param field column to be searched
  * @param responseSize response size to return
  * @param exact if the match has to be exact 
+ * @param count return the count of the response only
+ * @author techous
  **/
-function searchDescription(res, find, field, responseSize, exact, projection){
+function searchDescription(res, find, field, responseSize, exact, projection, count){
     let expression = "";
     if(exact){
         expression = new RegExp('^' + find + '$', 'i');
@@ -262,7 +281,7 @@ function searchDescription(res, find, field, responseSize, exact, projection){
             console.log("Error in "+field+" API: "+err);
         }else{
             res.header("Access-Control-Allow-Origin","*")
-            res.json(result);
+            count ? res.json({totalCount: result.length}) : res.json(result);
         }
     })
 }
@@ -275,8 +294,10 @@ function searchDescription(res, find, field, responseSize, exact, projection){
  * @param field column to be searched
  * @param responseSize response size to return
  * @param exact if the match has to be exact 
+ * @param count return the count of the response only
+ * @author techous
  **/
-function searchDocs(res, find, field, responseSize, exact, projection){
+function searchDocs(res, find, field, responseSize, exact, projection, count){
     let expression = "";
     if(exact){
         expression = new RegExp('^' + find + '$', 'i');
@@ -290,7 +311,7 @@ function searchDocs(res, find, field, responseSize, exact, projection){
             console.log("Error in "+field+" API: "+err);
         }else{
             res.header("Access-Control-Allow-Origin","*")
-            res.json(result);
+            count ? res.json({totalCount: result.length}) : res.json(result);
         }
     })
 }
@@ -303,8 +324,10 @@ function searchDocs(res, find, field, responseSize, exact, projection){
  * @param field column to be searched
  * @param responseSize response size to return
  * @param exact if the match has to be exact 
+ * @param count return the count of the response only
+ * @author techous
  **/
-function searchWebsite(res, find, field, responseSize, exact, projection){
+function searchWebsite(res, find, field, responseSize, exact, projection, count){
     let expression = "";
     if(exact){
         expression = new RegExp('^' + find + '$', 'i');
@@ -318,7 +341,7 @@ function searchWebsite(res, find, field, responseSize, exact, projection){
             console.log("Error in "+field+" API: "+err);
         }else{
             res.header("Access-Control-Allow-Origin","*")
-            res.json(result);
+            count ? res.json({totalCount: result.length}) : res.json(result);
         }
     })
 }
@@ -331,8 +354,10 @@ function searchWebsite(res, find, field, responseSize, exact, projection){
  * @param field column to be searched
  * @param responseSize response size to return
  * @param exact if the match has to be exact 
+ * @param count return the count of the response only
+ * @author techous
  **/
-function searchGithub(res, find, field, responseSize, exact, projection){
+function searchGithub(res, find, field, responseSize, exact, projection, count){
     let expression = "";
     if(exact){
         expression = new RegExp('^' + find + '$', 'i');
@@ -346,7 +371,7 @@ function searchGithub(res, find, field, responseSize, exact, projection){
             console.log("Error in "+field+" API: "+err);
         }else{
             res.header("Access-Control-Allow-Origin","*")
-            res.json(result);
+            count ? res.json({totalCount: result.length}) : res.json(result);
         }
     })
 }

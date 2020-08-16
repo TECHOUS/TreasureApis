@@ -1,23 +1,43 @@
 const myModel = require('../models/myModel');
 const mongoose = require('mongoose');
 let fs = require('fs');
-require('dotenv').config();
+require('dotenv').config({path: '../.env'});
+let dataMap = new Map();
 
-mongoose.connect(process.env.MONGO_DB, {useNewUrlParser: true});
+// mongodb connection
+mongoose.connect(process.env.MONGO_DB, {
+   useNewUrlParser: true,
+   useUnifiedTopology: true,
+   useCreateIndex: true
+});
 
 const db = mongoose.connection;
 
 db.on('error',console.error.bind(console, 'Connection error:'));
 
-function addRows()
-{
+getData();
+
+function getData(){
+   myModel.find((err, data)=>{
+      if(err)
+      {
+         throw err;
+      }
+      for(let i=0;i<data.length;i++){
+         dataMap.set(data[i].name, true);
+      }
+      console.log(`Records Fetched ${data.length}`);
+      readDataFromReadme();
+   })
+}
+
+function readDataFromReadme(){
    let charArray = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
    //parsing and adding new data to mongo db atlas
-   for(let i=0;i<charArray.length;i++)
-   {
+   for(let i=0;i<charArray.length;i++){
       let objectDatabase = [];
       let readFileName = 'Treasure-js/etc/'+charArray[i]+".md";       // reading files path
-
       fs.readFile(readFileName,function(err,buf){                     // reading markdown files
          if(err)
          {
@@ -26,7 +46,7 @@ function addRows()
          let readedFile      = buf.toString();
          let arr             = readedFile.split('\n');
          let object          = null;
-
+         
          // MARKDOWN PARSING
          for(let j=0;j<arr.length;j++)                               // parsing markdown and create objects
          {
@@ -85,35 +105,31 @@ function addRows()
             }
          }
          objectDatabase.push(object);                                        // pushing last created object
-
-         rowId = writeData(objectDatabase);
+         writeData(objectDatabase, ()=>{
+            console.log(`===> DATA ADDED FOR ${charArray[i]}`);
+         });
       });
    }
 } 
 
-addRows();
-
-function writeData(objectDatabase){
-
+function writeData(objectDatabase, callback){
    for(let i=0;i<objectDatabase.length;i++){
       let object = new myModel(
          objectDatabase[i]
       );
 
-      myModel.find((err, data)=>{
-         if(err)
-         {
-            throw err;
-         }
-         // console.log(data);
+      if(!dataMap.has(objectDatabase[i].name)){
          object.save((err, object)=>{
             if(err)
             {
                console.log(err.message);
             }else{
-               console.log("data added for" + objectDatabase[i].name);
+               console.log("data added for " + objectDatabase[i].name);
             }
          });
-      })
+      }else{
+         console.log(`${objectDatabase[i].name} already present`);
+      }
    }
+   callback();
 }
